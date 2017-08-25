@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset=utf-8>
+	<meta name=description content="">
+	<meta name=viewport content="width=device-width, initial-scale=1">
+	<title>test</title>
+</head>
+<body>
+	<div class="bigall"><input type="checkbox" name="ss">全选</div>
+	<div class="group">
+		<div class="all"><input type="checkbox" name="ss">组1</div>
+		<div class="list empty"><input type="checkbox" name="ss">蒙层</div>
+		<div class="list empty"><input type="checkbox" name="ss">蒙层</div>
+		<div class="list"><input type="checkbox" name="ss"></div>
+		<div class="list"><input type="checkbox" name="ss"></div>
+	</div>
+	<div class="group">
+		<div class="all"><input type="checkbox" name="ss">组2</div>
+		<div class="list empty"><input type="checkbox" name="ss">蒙层</div>
+		<div class="list empty"><input type="checkbox" name="ss">蒙层</div>
+		<div class="list"><input type="checkbox" name="ss"></div>
+		<div class="list"><input type="checkbox" name="ss"></div>
+	</div>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$('.bigall input').on("click",function(){
+			$('.list').not('.empty').find('input').prop("checked",this.checked);
+			$('.all input').prop("checked",this.checked);
+		});
+
+		$('.all input').on("click",function(){
+			var allList = $('.all input');
+			$(this).closest('.group').find('.list').not('.empty').find('input').prop("checked",this.checked);
+			$('.bigall input').prop("checked",allList.length==$('.all input:checked').length?true:false)
+		});
+
+		$('.list input').on("click",function(){
+			var nowList = $(this).closest('.group').find('.list').not('.empty').find('input');
+			var allList = $('.list').not('.empty').find('input');
+			$(this).closest('.group').find('.all input').prop("checked",nowList.length==$(this).closest('.group').find('.list input:checked').length?true:false)
+			$('.bigall input').prop("checked",allList.length==$('.list input:checked').length?true:false)
+		})
+	})
+</script>
+</body>
+</html>
